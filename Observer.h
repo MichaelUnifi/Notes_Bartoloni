@@ -4,13 +4,13 @@
 
 #ifndef NOTES_BARTOLONI_OBSERVER_H
 #define NOTES_BARTOLONI_OBSERVER_H
-class Subject;
+class Note;
 
 class Observer {
 public:
     virtual ~Observer()=default;
 
-    virtual void updateForRemoval(Subject *s)=0;
+    virtual void updateForRemoval(Note *s,bool lock)=0;
 
 };
 

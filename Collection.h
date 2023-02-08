@@ -17,7 +17,7 @@ private:
     std::string name;
 public:
 
-    explicit Collection(std::string &n):name(n) {}
+    explicit Collection(std::string n):name(n){}
 
     ~Collection() override{
         for(auto it: notes)
@@ -30,11 +30,15 @@ public:
         name=newName;
     }
 
+    void addNote(Note* note){
+        notes.push_back(note);
+    }
+
     void show();
 
     void modify();
 
-    void updateForRemoval(Note* note);//metodo Observer
+    virtual void updateForRemoval(Note* note,bool lock) override;//metodo Observer
 
     int getSize(){return notes.size();    }
 

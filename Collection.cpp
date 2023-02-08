@@ -6,8 +6,9 @@
 
 void Collection::show() {
     int index=1;
+    std::cout<<name<<std::endl;
     for(auto it: notes){
-        std::cout<<"\nindex. "<<it->getTitle()<<"\n"<<it->getText()<<std::endl;
+        std::cout<<"\n"<<index<<"."<<it->getTitle()<<"\n"<<it->getText()<<std::endl;
         index++;
     }
 }
@@ -24,31 +25,32 @@ void Collection::modify() {
     if(!(*note)->isLocked()){
         (*note)->getText();
         (*note)->getTitle();
-        std::cout<<"digitare 0 per modificare il titolo, 1 per modificare il testo"<<std::endl;
+        std::cout<<"digitare 0 per modificare il titolo, 1 per modificare il testo, qualunque altro tasto per annullare"<<std::endl;
         int choice;
         std::cin>>choice;
-        if(choice){
+        if(choice==0){
+            std::cout<<"Inserire il nuovo titolo"<<std::endl;
+            std::string newTitle;
+            std::cin>>newTitle;
+            (*note)->setTitle(newTitle);}
+        if(choice==1){
             std::cout<<"Inserire il nuovo testo"<<std::endl;
             std::string newText;
             std::cin>>newText;
             (*note)->setText(newText);
-        }
-        else{
-            std::cout<<"Inserire il nuovo titolo"<<std::endl;
-            std::string newTitle;
-            std::cin>>newTitle;
-            (*note)->setTitle(newTitle);
         }
     }else{
         std::cout<<"Nota non modificabile!\n"<<std::endl;
     }
 }
 
-void Collection::updateForRemoval(Note* note) {
-    if(!note->isLocked()){
+void Collection::updateForRemoval(Note* note, bool lock) {
+    if(!lock){
         notes.remove(note);
     }else{
         std::cout<<"Nota non eliminabile!\n"<<std::endl;
     }
     std::cout<<"numero di note nella collezione: "<<getSize()<<std::endl;
 }
+
+

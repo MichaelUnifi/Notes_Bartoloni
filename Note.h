@@ -17,15 +17,19 @@ private:
     std::string text;
     bool locked;
 public:
-    Note(std::string &ti, std::string &te):title(ti),text(te),locked(false){}
+    Note(std::string ti, std::string te):title(ti),text(te),locked(false){}
 
-    ~Note()=default;
+    ~Note(){
+        locked=true;
+        for(auto it: collections)
+            free(it);
+    }
 
     std::string getTitle() const{
         return title;
     }
 
-    void setTitle(std::string &newTitle){
+    void setTitle(std::string newTitle){
         title=newTitle;
     }
 
@@ -59,7 +63,7 @@ public:
 
     void notifyForRemoval() override {
         for(auto it:collections)
-            it->updateForRemoval(this);
+            it->updateForRemoval(this,isLocked());
     }
 };
 
