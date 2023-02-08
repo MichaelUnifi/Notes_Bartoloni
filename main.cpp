@@ -1,9 +1,7 @@
 #include <iostream>
 #include "Collection.h"
 #include "Note.h"
-#include  <list>
-#include "Observer.h"
-#include "Subject.h"
+#include <list>
 int main() {
     std::list<Collection*> collections;
     Collection important( "important");
@@ -17,7 +15,7 @@ int main() {
     n1->add(&important);
     n2->add(&important);
     n3->add(&important);
-    n3->lock();
+    n3->changeLock();
     bool close=false;
     int k=1;
     std::cout<<"Le tue collection:\n"<<std::endl;
@@ -25,14 +23,15 @@ int main() {
         std::cout<<k<<". "<<it->getName()<<" - "<<it->getSize()<<" elementi"<<std::endl;
         k++;
     }
-    std::cout<<"\ncosa vuoi fare?"<<std::endl;
-    std::cout<<"\n0. esci\n1. aggiungi una collection\n2. crea una nota\n3. accedi a una collection\n"<<std::endl;
-    std::cin>>k;
     do{
+        std::cout<<"\n\n\n"<<std::endl;
+        k=1;
         for(auto it:collections){
             std::cout<<k<<". "<<it->getName()<<" - "<<it->getSize()<<" elementi"<<std::endl;
-            k++;
         }
+        std::cout<<"\ncosa vuoi fare?"<<std::endl;
+        std::cout<<"\n0. esci\n1. aggiungi una collection\n2. crea una nota\n3. accedi a una collection\n"<<std::endl;
+        std::cin>>k;
         switch(k){
             case 0:
                 close=true;
@@ -48,7 +47,8 @@ int main() {
             case 2:
             {
                 std::string noteName;
-                std::string noteText;std::cout<<"Seleziona un nome per la nota: "<<std::endl;
+                std::string noteText;
+                std::cout<<"Seleziona un nome per la nota: "<<std::endl;
                 std::cin>>noteName;
                 std::cout<<"Seleziona il contenuto della nota: "<<std::endl;
                 std::cin>>noteText;
@@ -71,10 +71,25 @@ int main() {
                 }
                 break;
             }
-            case 3:
+            case 3:{
+                int c;
+                std::cout<<"Seleziona la collection a cui vuoi accedere: "<<std::endl;
+                std::cin>>c;
+                if(c<=collections.size()){
+                    auto it=collections.begin();
+                    for(int i=1;i<c;i++)
+                        it++;
+                    (*it)->show();
+                    (*it)->modify();
+                }
+                else{
+                    std::cout<<"\nInput non valido"<<std::endl;
+                }
+
                 break;
+            }
             default:
-                std::cout<<"input non valido! "<<std::endl;
+                std::cout<<"Input non valido! "<<std::endl;
                 break;
         }
     }while(!close);

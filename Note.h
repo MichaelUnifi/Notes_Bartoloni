@@ -45,12 +45,11 @@ public:
         return locked;
     }
 
-    void lock(){
-        locked=true;
-    }
-
-    void unlock(){
-        locked=false;
+    void changeLock(){
+        if(locked)
+            locked=false;
+        else
+            locked=true;
     }
 
     void add(Observer* o) override{
@@ -59,6 +58,9 @@ public:
 
     void remove(Observer* o) override{
         collections.remove(o);
+        if(collections.size()==0){
+            delete this;
+        }
     }
 
     void notifyForRemoval() override {
