@@ -16,7 +16,7 @@ public:
 
     virtual void remove(Observer *o)=0;
 
-    virtual void notifyForRemoval()=0;
+    virtual bool deleteAndNotify()=0;
 
 };
 

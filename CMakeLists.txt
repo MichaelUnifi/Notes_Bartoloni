@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.24)
 project(Notes_Bartoloni)
-
+add_subdirectory(Google_tests)
 set(CMAKE_CXX_STANDARD 17)
-
-add_executable(Notes_Bartoloni main.cpp Note.cpp Note.h Collection.cpp Collection.h Observer.h Subject.h)
+set(SOURCE_FILES Note.cpp Note.h Collection.cpp Collection.h Observer.h Subject.h Important.cpp Important.h)
+add_executable(Notes_Bartoloni main.cpp Note.cpp Note.h Collection.cpp Collection.h Observer.h Subject.h Important.cpp Important.h)
+add_library(core ${SOURCE_FILES})
+target_link_libraries(Notes_Bartoloni core)

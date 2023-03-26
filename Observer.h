@@ -10,7 +10,7 @@ class Observer {
 public:
     virtual ~Observer()=default;
 
-    virtual void updateForRemoval(Note *s,bool lock)=0;
+    virtual void updateForRemoval(Note *s)=0;
 
 };
 

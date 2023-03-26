@@ -19,26 +19,18 @@ public:
 
     explicit Collection(std::string n):name(n){}
 
-    ~Collection() override{
-        for(auto it: notes)
-            free(it);//in futuro possono finire in eliminati di recente?
-    }
+    ~Collection() override;
 
     std::string getName(){return name;}
 
-    void setName(std::string &newName){
-        name=newName;
-    }
+    void setName(std::string &newName);
 
-    void addNote(Note* note){
-        notes.push_back(note);
-    }
+
+    void addNote(Note* note);
 
     void show();
 
-    void modify();
-
-    virtual void updateForRemoval(Note* note,bool lock) override;//metodo Observer
+    void updateForRemoval(Note* note) override;//metodo Observer
 
     int getSize(){return notes.size();    }
 

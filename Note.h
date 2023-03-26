@@ -19,54 +19,27 @@ private:
 public:
     Note(std::string ti, std::string te):title(ti),text(te),locked(false){}
 
-    ~Note(){
-        locked=true;
-        for(auto it: collections)
-            free(it);
-    }
+    ~Note()=default;
 
-    std::string getTitle() const{
-        return title;
-    }
+    std::string getTitle();
 
-    void setTitle(std::string newTitle){
-        title=newTitle;
-    }
+    void setTitle(std::string newTitle);
 
-    std::string getText() const{
-        return text;
-    }
+    std::string getText();
 
-    void setText(std::string &newText){
-        text=newText;
-    }
+    void setText(std::string newText);
 
-    bool isLocked() const{
-        return locked;
-    }
+    bool isLocked() const;
 
-    void changeLock(){
-        if(locked)
-            locked=false;
-        else
-            locked=true;
-    }
+    void changeLock();
 
-    void add(Observer* o) override{
-        collections.push_back(o);
-    }
+    bool modify(std::string& newTitle, std::string& newText);
 
-    void remove(Observer* o) override{
-        collections.remove(o);
-        if(collections.size()==0){
-            delete this;
-        }
-    }
+    void add(Observer* o) override;
 
-    void notifyForRemoval() override {
-        for(auto it:collections)
-            it->updateForRemoval(this,isLocked());
-    }
+    void remove(Observer* o) override;
+
+    bool deleteAndNotify() override;
 };
 
 
