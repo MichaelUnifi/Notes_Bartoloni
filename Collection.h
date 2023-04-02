@@ -32,7 +32,7 @@ public:
 
     void updateForRemoval(Note* note) override;//metodo Observer
 
-    int getSize(){return notes.size();    }
+    int getSize(){return notes.size();}
 
 };
 

@@ -21,13 +21,18 @@ void Important::addNote(Note *note) {
 void Important::show() {
     int index=1;
     std::cout<<name<<std::endl;
-    for(auto it: notes){
-        std::cout<<"\n"<<index<<"."<<it->getTitle()<<"\n"<<it->getText()<<". "<<std::endl;
-        if(it->isLocked())
-            std::cout<<" bloccata"<<std::endl;
-        else
-            std::cout<<" non bloccata"<<std::endl;
-        index++;
+    if(notes.empty())
+        std::cout<<"Nessuna nota importante"<<std::endl;
+    else{
+        std::cout<<"Le note importanti sono:"<<std::endl;
+        for(auto it: notes){
+            std::cout<<"\n"<<index<<"."<<it->getTitle()<<"\n"<<it->getText()<<". "<<std::endl;
+            if(it->isLocked())
+                std::cout<<" bloccata"<<std::endl;
+            else
+                std::cout<<" non bloccata"<<std::endl;
+            index++;
+        }
     }
 }
 
@@ -42,7 +47,6 @@ int Important::getSize() {
 Important::~Important() {
     for(auto it: notes)
         free(it);
-
 }
 
 

@@ -5,9 +5,10 @@
 #include "../Collection.h"
 #include "gtest/gtest.h"
 
-TEST(Note, getTitleTest){
+TEST(Note, constructorTest){
     Note note("testing", "sample");
     ASSERT_EQ("testing", note.getTitle());
+    ASSERT_EQ("sample", note.getText());
 }
 
 TEST(Note, getTextTest){
@@ -35,14 +36,16 @@ TEST(Note, lockTest){
 }
 
 TEST(Note, observersTest){
-    Collection collection("name");
+    Collection collection1("name");
     Collection collection2("name");
     Collection collection3("name");
     Note* note=new Note("testing", "sample");
-    note->add(&collection);
+    note->add(&collection1);
     note->add(&collection2);
     note->add(&collection3);
-    collection.addNote(note);
+    collection1.addNote(note);
     note->deleteAndNotify();
-    EXPECT_EQ(0,0);
+    EXPECT_EQ(collection1.getSize(),0);
+    EXPECT_EQ(collection2.getSize(),0);
+    EXPECT_EQ(collection3.getSize(),0);
 }

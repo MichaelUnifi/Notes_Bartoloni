@@ -33,7 +33,7 @@ public:
 
     void changeLock();
 
-    bool modify(std::string& newTitle, std::string& newText);
+    bool modify(std::string newTitle, std::string newText);
 
     void add(Observer* o) override;
 

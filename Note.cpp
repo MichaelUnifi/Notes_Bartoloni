@@ -28,7 +28,7 @@ void Note::changeLock() {
     locked=!locked;
 }
 
-bool Note::modify(std::string &newTitle, std::string &newText) {
+bool Note::modify(std::string newTitle, std::string newText) {
     if(locked)
         return false;
     title=newTitle;

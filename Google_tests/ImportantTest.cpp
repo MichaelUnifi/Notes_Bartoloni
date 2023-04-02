@@ -5,7 +5,7 @@
 #include "../Important.h"
 #include "gtest/gtest.h"
 
-TEST(Important, getSizeTest){
+TEST(Important, constructorTest){
     Important* important=Important::getInstance();
     ASSERT_EQ(0, important->getSize());
 }
@@ -19,9 +19,9 @@ TEST(Important, addNoteTest){
 
 
 
-TEST(Important, updateForRemovalTest){
+TEST(Important, updateForRemovalTest){//anomalia eseguendo tutti i test insieme
     Important* important=Important::getInstance();//comportamento strano, istanziato già con una nota dentro
-    Note* note=new Note("prova", "testo");
+    Note* note=new Note("prova", "testo");//se eseguo questo test singolarmente funziona
     important->addNote(note);
     note->deleteAndNotify();
     EXPECT_EQ(0,important->getSize());

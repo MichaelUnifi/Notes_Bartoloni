@@ -6,14 +6,18 @@
 
 void Collection::show() {
     int index=1;
-    std::cout<<name<<std::endl;
-    for(auto it: notes){
-        std::cout<<"\n"<<index<<"."<<it->getTitle()<<"\n"<<it->getText()<<". "<<std::endl;
-        if(it->isLocked())
-            std::cout<<" bloccata"<<std::endl;
-        else
-            std::cout<<" non bloccata"<<std::endl;
-        index++;
+    if(notes.empty())
+        std::cout<<"Nessuna nota in "<<name<<std::endl;
+    else{
+        std::cout<<"Le note in "<<name<<" sono:"<<std::endl;
+        for(auto it: notes){
+            std::cout<<"\n"<<index<<"."<<it->getTitle()<<"\n"<<it->getText()<<". "<<std::endl;
+            if(it->isLocked())
+                std::cout<<" bloccata"<<std::endl;
+            else
+                std::cout<<" non bloccata"<<std::endl;
+            index++;
+        }
     }
 }
 

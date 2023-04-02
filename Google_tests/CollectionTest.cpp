@@ -5,9 +5,10 @@
 #include "../Collection.h"
 #include "gtest/gtest.h"
 
-TEST(Collection, getNameTest){
+TEST(Collection, constructorTest){
     Collection collection("name");
     ASSERT_EQ("name", collection.getName());
+    ASSERT_EQ(0, collection.getSize());
 }
 
 TEST(Collection, setNameTest){
