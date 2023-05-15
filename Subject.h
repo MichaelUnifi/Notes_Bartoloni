@@ -5,18 +5,22 @@
 #ifndef NOTES_BARTOLONI_SUBJECT_H
 #define NOTES_BARTOLONI_SUBJECT_H
 #include "Observer.h"
-
+#include <memory>
 
 class Subject {
 public:
 
 
 
-    virtual void add(Observer *o)=0;
+    virtual void add(std::shared_ptr<Observer> o)=0;
 
-    virtual void remove(Observer *o)=0;
+    virtual void remove(std::shared_ptr<Observer> o)=0;
 
-    virtual bool deleteAndNotify()=0;
+    virtual void notify()=0;
+
+    virtual const std::string getName()=0;
+
+    virtual ~Subject()= default;
 
 };
 

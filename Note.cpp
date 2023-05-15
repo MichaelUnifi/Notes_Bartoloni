@@ -8,16 +8,22 @@ std::string Note::getTitle() {
     return title;
 }
 
-void Note::setTitle(std::string newTitle) {
-    title=newTitle;
+void Note::setTitle(std::string& newTitle) {
+    if(locked)
+        std::cout<<"Impossibile modificare il titolo, nota bloccata"<<std::endl;
+    else
+        title=newTitle;
 }
 
 std::string Note::getText() {
     return text;
 }
 
-void Note::setText(std::string newText) {
-    text=newText;
+void Note::setText(std::string& newText) {
+    if(locked)
+        std::cout<<"Impossibile modificare il testo, nota bloccata"<<std::endl;
+    else
+        text=newText;
 }
 
 bool Note::isLocked() const {
@@ -26,31 +32,4 @@ bool Note::isLocked() const {
 
 void Note::changeLock() {
     locked=!locked;
-}
-
-bool Note::modify(std::string newTitle, std::string newText) {
-    if(locked)
-        return false;
-    title=newTitle;
-    text=newText;
-    return true;
-}
-
-void Note::add(Observer *o) {
-    collections.push_back(o);
-}
-
-void Note::remove(Observer *o) {
-    collections.remove(o);
-
-}
-
-bool Note::deleteAndNotify() {
-    if(locked)
-        return false;
-    for(auto it: collections){
-        it->updateForRemoval(this);
-    }
-    collections.clear();
-    return true;
 }

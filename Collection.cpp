@@ -10,7 +10,7 @@ void Collection::show() {
         std::cout<<"Nessuna nota in "<<name<<std::endl;
     else{
         std::cout<<"Le note in "<<name<<" sono:"<<std::endl;
-        for(auto it: notes){
+        for(const auto& it: notes){
             std::cout<<"\n"<<index<<"."<<it->getTitle()<<"\n"<<it->getText()<<". "<<std::endl;
             if(it->isLocked())
                 std::cout<<" bloccata"<<std::endl;
@@ -21,13 +21,17 @@ void Collection::show() {
     }
 }
 
-void Collection::updateForRemoval(Note* note) {
-        notes.remove(note);
+void Collection::addNote(std::shared_ptr<Note> note) {
+    notes.push_back(note);
+    notify();
 }
 
-void Collection::addNote(Note *note) {
-    notes.push_back(note);
-    note->add(this);
+bool Collection::removeNote(std::shared_ptr<Note> note) {
+    if(note->isLocked())
+        return false;
+    notes.remove(note);
+    notify();
+    return true;
 }
 
 void Collection::setName(std::string &newName) {
@@ -35,9 +39,35 @@ void Collection::setName(std::string &newName) {
 }
 
 Collection::~Collection() {
-    for(auto it: notes)
-        free(it);//in futuro possono finire in eliminati di recente?
+    notes.clear();
+}
 
+void Collection::notify() {
+    view->update(shared_from_this(),notes.size());
+}
+
+bool Collection::searchNote(std::string &title) {
+    for(const auto& it: notes){
+        if(it->getTitle()==title)
+            return true;
+    }
+}
+
+Note Collection::takeNote(std::string &title) {
+    for(const auto& it: notes){
+        if(it->getTitle()==title)
+            return *it;
+    }
+}
+
+void Collection::add(std::shared_ptr<Observer> o) {
+    view=o;
+    view->subscribe(shared_from_this(),notes.size());
+}
+
+void Collection::remove(std::shared_ptr<Observer> o) {
+    view->unsubscribe(shared_from_this());
+    view= nullptr;
 }
 
 

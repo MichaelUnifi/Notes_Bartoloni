@@ -5,31 +5,23 @@
 #ifndef NOTES_BARTOLONI_IMPORTANT_H
 #define NOTES_BARTOLONI_IMPORTANT_H
 
+#include <memory>
 #include "Note.h"
 #include "Observer.h"
+#include "Subject.h"
+#include "Collection.h"
 
-class Important: public Observer{
+class Important: public Collection{
 public:
     static Important* getInstance();
 
-
-    ~Important() override;
-
-    void addNote(Note* note);
-
-
-    void show();
-
-
-    void updateForRemoval(Note* note) override;//metodo Observer
-
-    int getSize();
+    virtual ~Important() override;
 
 protected:
-    Important()= default;
+    Important();
 
 private:
-    std::list<Note*> notes;
+    std::list<std::shared_ptr<Note>> notes;
     std::string name="Important";
     static Important* instance;
 };

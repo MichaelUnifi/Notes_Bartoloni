@@ -7,33 +7,46 @@
 #include <string>
 #include <iostream>
 #include <list>
+#include <memory>
 #include "Note.h"
-#include "Observer.h"
+#include "Subject.h"
+#include"View.h"
 
-class Collection: public Observer{
+class Collection: public Subject, public std::enable_shared_from_this<Collection>{
 
 private:
-    std::list<Note*> notes;
+    std::list<std::shared_ptr<Note>> notes;
     std::string name;
+
+protected:
+    std::shared_ptr<Observer> view;
 public:
 
-    explicit Collection(std::string n):name(n){}
+    explicit Collection(std::string& n):name(n){}
 
     ~Collection() override;
 
-    std::string getName(){return name;}
+    const std::string getName() override{return name;}
 
     void setName(std::string &newName);
 
+    bool searchNote(std::string& title);
 
-    void addNote(Note* note);
+    Note takeNote(std::string& title);
+
+    void addNote(std::shared_ptr<Note> note);
+
+    bool removeNote(std::shared_ptr<Note> note);
 
     void show();
 
-    void updateForRemoval(Note* note) override;//metodo Observer
+    void add(std::shared_ptr<Observer> o) override;
 
-    int getSize(){return notes.size();}
+    void remove(std::shared_ptr<Observer> o) override;
 
+    int getSize() const{return notes.size();}
+
+    void notify() override;
 };
 
 

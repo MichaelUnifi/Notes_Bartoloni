@@ -7,46 +7,17 @@
 
 Important* Important::instance = nullptr;
 
+Important::Important():Collection(name) {}
+
 Important *Important::getInstance() {
     if(instance== nullptr)
         instance=new Important();
     return instance;
 }
 
-void Important::addNote(Note *note) {
-    notes.push_back(note);
-    note->add(this);
-}
-
-void Important::show() {
-    int index=1;
-    std::cout<<name<<std::endl;
-    if(notes.empty())
-        std::cout<<"Nessuna nota importante"<<std::endl;
-    else{
-        std::cout<<"Le note importanti sono:"<<std::endl;
-        for(auto it: notes){
-            std::cout<<"\n"<<index<<"."<<it->getTitle()<<"\n"<<it->getText()<<". "<<std::endl;
-            if(it->isLocked())
-                std::cout<<" bloccata"<<std::endl;
-            else
-                std::cout<<" non bloccata"<<std::endl;
-            index++;
-        }
-    }
-}
-
-void Important::updateForRemoval(Note *note) {
-    notes.remove(note);
-}
-
-int Important::getSize() {
-    return notes.size();
-}
-
 Important::~Important() {
-    for(auto it: notes)
-        free(it);
+    notes.clear();
+    free(instance);
 }
 
 

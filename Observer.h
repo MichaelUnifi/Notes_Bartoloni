@@ -4,13 +4,18 @@
 
 #ifndef NOTES_BARTOLONI_OBSERVER_H
 #define NOTES_BARTOLONI_OBSERVER_H
-class Note;
+
+class Subject;
 
 class Observer {
 public:
     virtual ~Observer()=default;
 
-    virtual void updateForRemoval(Note *s)=0;
+    virtual void update(std::shared_ptr<Subject> collection, int noteCount)=0;
+
+    virtual void subscribe(std::shared_ptr<Subject> collection, int noteCount)=0;
+
+    virtual void unsubscribe(std::shared_ptr<Subject> collection)=0;
 
 };
 
