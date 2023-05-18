@@ -9,19 +9,26 @@
 #include "gtest/gtest.h"
 
 TEST(View,updateTest){
-    View view;
-    std::shared_ptr<Collection> collection=std::make_shared<Collection>((std::string &)"name");
-    view.subscribe(collection, collection->getSize());
-    std::shared_ptr<Note> note=std::make_shared<Note>((std::string &)"prova",(std::string &) "testo");
+    std::shared_ptr<View> view=std::make_shared<View>();
+    std::string name="name";
+    std::shared_ptr<Collection> collection=std::make_shared<Collection>(name);
+    std::string title="testing";
+    std::string text="sample";
+    std::shared_ptr<Note> note=std::make_shared<Note>(title, text);
+    view->subscribe(collection, collection->getSize());
+    collection->add(std::dynamic_pointer_cast<Observer>(view));
     collection->addNote(note);
-    ASSERT_EQ(1,view.getNoteNumberByCollection(collection));
+    ASSERT_EQ(1,view->getNoteNumberByCollection(collection));
 }
 
 TEST(View, subscribingTest){
-    View view;
-    std::shared_ptr<Collection> collection=std::make_shared<Collection>((std::string &)"name");
-    view.subscribe(collection, collection->getSize());
-    ASSERT_EQ(1,view.getCollectionsNumber().size());
-    view.unsubscribe(collection);
-    ASSERT_EQ(0,view.getCollectionsNumber());
+    std::shared_ptr<View> view=std::make_shared<View>();
+    std::string name="name";
+    std::shared_ptr<Collection> collection=std::make_shared<Collection>(name);
+    view->subscribe(collection, collection->getSize());
+    collection->add(std::dynamic_pointer_cast<Observer>(view));
+    ASSERT_EQ(1,view->getCollectionsNumber());
+    view->unsubscribe(collection);
+    collection->remove(std::dynamic_pointer_cast<Observer>(view));
+    ASSERT_EQ(0,view->getCollectionsNumber());
 }

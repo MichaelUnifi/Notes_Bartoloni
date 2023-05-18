@@ -12,7 +12,7 @@
 #include <utility>
 #include <map>
 
-class View : public Observer{
+class View : public Observer, public std::enable_shared_from_this<Observer>{
 private:
     std::map<std::shared_ptr<Subject>,int> collectionsInfo;
 public:
@@ -24,11 +24,11 @@ public:
 
     int getNoteNumberByCollection(std::shared_ptr<Subject> collection){return collectionsInfo.at(collection);}
 
-    virtual void update(std::shared_ptr<Subject> collection, int noteCount);
+    void update(std::shared_ptr<Subject> collection, int noteCount) override;
 
-    virtual void subscribe(std::shared_ptr<Subject> collection, int noteCount);
+    void subscribe(std::shared_ptr<Subject> collection, int noteCount) override;
 
-    virtual void unsubscribe(std::shared_ptr<Subject> collection);
+    void unsubscribe(std::shared_ptr<Subject> collection) override;
 
     ~View() override= default;
 };

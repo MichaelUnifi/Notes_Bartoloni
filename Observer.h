@@ -5,6 +5,8 @@
 #ifndef NOTES_BARTOLONI_OBSERVER_H
 #define NOTES_BARTOLONI_OBSERVER_H
 
+#include <memory>
+
 class Subject;
 
 class Observer {

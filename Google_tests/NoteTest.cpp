@@ -5,30 +5,42 @@
 #include "gtest/gtest.h"
 
 TEST(Note, constructorTest){
-    Note note((std::string &) "testing",(std::string &) "sample");
+    std::string title="testing";
+    std::string text="sample";
+    Note note(title,text);
     ASSERT_EQ("testing", note.getTitle());
     ASSERT_EQ("sample", note.getText());
 }
 
 TEST(Note, getTextTest){
-    Note note((std::string &) "testing",(std::string &) "sample");
+    std::string title="testing";
+    std::string text="sample";
+    Note note(title,text);
     ASSERT_EQ("sample", note.getText());
 }
 
 TEST(Note, setTitleTest){
-    Note note((std::string &) "testing",(std::string &) "sample");
-    note.setTitle((std::string &) "changing");
+    std::string title="testing";
+    std::string text="sample";
+    Note note(title,text);
+    std::string newTitle="changing";
+    note.setTitle(newTitle);
     ASSERT_EQ("changing", note.getTitle());
 }
 
 TEST(Note, setTextTest){
-    Note note((std::string &) "testing",(std::string &) "sample");
-    note.setText((std::string &) "changes");
+    std::string title="testing";
+    std::string text="sample";
+    Note note(title,text);
+    std::string newText="changes";
+    note.setText(newText);
     ASSERT_EQ("changes", note.getText());
 }
 
 TEST(Note, lockTest){
-    Note note((std::string &) "testing",(std::string &) "sample");
+    std::string title="testing";
+    std::string text="sample";
+    Note note(title,text);
     ASSERT_EQ(false, note.isLocked());
     note.changeLock();
     ASSERT_EQ(true, note.isLocked());

@@ -20,8 +20,10 @@ void View::show() {
 
 void View::subscribe(std::shared_ptr<Subject> collection, int noteCount){
     collectionsInfo.insert(std::pair<std::shared_ptr<Subject>,int>(collection,noteCount));
+    //collection->add(shared_from_this());
 }
 
 void View::unsubscribe(std::shared_ptr<Subject> collection){
     collectionsInfo.erase(collection);
+    //collection->remove(shared_from_this());
 }

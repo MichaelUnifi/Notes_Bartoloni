@@ -51,6 +51,7 @@ bool Collection::searchNote(std::string &title) {
         if(it->getTitle()==title)
             return true;
     }
+    return false;
 }
 
 Note Collection::takeNote(std::string &title) {

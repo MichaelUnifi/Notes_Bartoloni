@@ -8,60 +8,78 @@
 #include "gtest/gtest.h"
 
 TEST(Collection, constructorTest){
-    Collection collection((std::string &) "name");
+    std::string name="name";
+    Collection collection(name);
     ASSERT_EQ("name", collection.getName());
     ASSERT_EQ(0, collection.getSize());
 }
 
 TEST(Collection, setNameTest){
-    Collection collection((std::string &) "name");
+    std::string name="name";
+    Collection collection(name);
     std::string mod="modified";
     collection.setName(mod);
     ASSERT_EQ("modified", mod);
 }
 
 TEST(Collection, getSizeTest){
-    Collection collection((std::string &) "name");
+    std::string name="name";
+    Collection collection(name);
     ASSERT_EQ(0, collection.getSize());
 }
 
-TEST(Collection, addNoteTest){
-    Collection collection((std::string &) "name");
-    std::shared_ptr<Note> note=std::make_shared<Note>((std::string &) "prova",(std::string &) "testo");
-    collection.addNote(note);
-    ASSERT_EQ(1,collection.getSize());
-}
-
 TEST(Collection, notifyTest){
-    View view;
-    std::shared_ptr<Collection> collection=std::make_shared<Collection>((std::string &) "name");
-    view.subscribe(collection, collection->getSize());
-    std::shared_ptr<Note> note=std::make_shared<Note>((std::string &) "prova",(std::string &) "testo");
+    std::shared_ptr<View> view=std::make_shared<View>();
+    std::string name="name";
+    std::shared_ptr<Collection> collection=std::make_shared<Collection>(name);
+    view->subscribe(collection, collection->getSize());
+    collection->add(std::dynamic_pointer_cast<Observer>(view));
+    std::string title="testing";
+    std::string text="sample";
+    std::shared_ptr<Note> note=std::make_shared<Note>(title, text);
     collection->addNote(note);
-    ASSERT_EQ(1,view.getNoteNumberByCollection(collection));
+    ASSERT_EQ(1,view->getNoteNumberByCollection(collection));
 }
 
-TEST(Collection, removeNoteTest){
-    Collection collection((std::string &) "name");
-    std::shared_ptr<Note> note=std::make_shared<Note>((std::string &) "prova",(std::string &) "testo");
-    collection.addNote(note);
-    ASSERT_EQ(1,collection.getSize());
-    collection.removeNote(note);
-    ASSERT_EQ(0,collection.getSize());
+TEST(Collection, noteTesting){
+    std::shared_ptr<View> view=std::make_shared<View>();
+    std::string name="name";
+    std::shared_ptr<Collection> collection=std::make_shared<Collection>(name);
+    view->subscribe(collection, collection->getSize());
+    collection->add(std::dynamic_pointer_cast<Observer>(view));
+    std::string title="testing";
+    std::string text="sample";
+    std::shared_ptr<Note> note=std::make_shared<Note>(title, text);
+    collection->addNote(note);
+    ASSERT_EQ(1,collection->getSize());
+    collection->removeNote(note);
+    ASSERT_EQ(0,collection->getSize());
 }
 
 TEST(Collection, searchNoteTest){
-    Collection collection((std::string &) "name");
-    std::shared_ptr<Note> note=std::make_shared<Note>((std::string &) "prova",(std::string &) "testo");
-    collection.addNote(note);
-    ASSERT_TRUE(collection.searchNote((std::string &) "prova"));
-    ASSERT_FALSE(collection.searchNote((std::string &) "prova2"));
+    std::shared_ptr<View> view=std::make_shared<View>();
+    std::string name="name";
+    std::shared_ptr<Collection> collection=std::make_shared<Collection>(name);
+    view->subscribe(collection, collection->getSize());
+    collection->add(std::dynamic_pointer_cast<Observer>(view));
+    std::string title="testing";
+    std::string text="sample";
+    std::shared_ptr<Note> note=std::make_shared<Note>(title, text);
+    collection->addNote(note);
+    std::string title2="testing2";
+    ASSERT_TRUE(collection->searchNote(title));
+    ASSERT_FALSE(collection->searchNote(title2));
 }
 
 TEST(Collection, takeNoteTest){
-    Collection collection((std::string &) "name");
-    std::shared_ptr<Note> note=std::make_shared<Note>((std::string &) "prova",(std::string &) "testo");
-    collection.addNote(note);
-    ASSERT_EQ("prova",collection.takeNote((std::string &) "prova").getTitle());
-    ASSERT_EQ("testo",collection.takeNote((std::string &) "prova").getText());
+    std::shared_ptr<View> view=std::make_shared<View>();
+    std::string name="name";
+    std::shared_ptr<Collection> collection=std::make_shared<Collection>(name);
+    view->subscribe(collection, collection->getSize());
+    collection->add(std::dynamic_pointer_cast<Observer>(view));
+    std::string title="testing";
+    std::string text="sample";
+    std::shared_ptr<Note> note=std::make_shared<Note>(title, text);
+    collection->addNote(note);
+    ASSERT_EQ("testing",collection->takeNote(title).getTitle());
 }
