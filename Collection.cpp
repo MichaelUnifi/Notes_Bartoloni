@@ -55,6 +55,7 @@ bool Collection::searchNote(std::string &title) {
 }
 
 Note Collection::takeNote(std::string &title) {
+
     for(const auto& it: notes){
         if(it->getTitle()==title)
             return *it;
@@ -69,6 +70,11 @@ void Collection::add(std::shared_ptr<Observer> o) {
 void Collection::remove(std::shared_ptr<Observer> o) {
     view->unsubscribe(shared_from_this());
     view= nullptr;
+}
+
+Collection::Collection(std::string &n) {
+    name=n;
+    notes=std::list<std::shared_ptr<Note>>();
 }
 
 

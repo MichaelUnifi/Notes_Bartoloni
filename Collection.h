@@ -14,15 +14,13 @@
 
 class Collection: public Subject, public std::enable_shared_from_this<Collection>{
 
-private:
+protected:
     std::list<std::shared_ptr<Note>> notes;
     std::string name;
-
-protected:
     std::shared_ptr<Observer> view;
 public:
 
-    explicit Collection(std::string& n):name(n){}
+    explicit Collection(std::string& n);
 
     ~Collection() override;
 

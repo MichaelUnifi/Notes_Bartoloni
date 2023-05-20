@@ -18,11 +18,9 @@ public:
     virtual ~Important() override;
 
 protected:
-    Important();
+    Important(std::string& n);
 
 private:
-    std::list<std::shared_ptr<Note>> notes;
-    std::string name="Important";
     static Important* instance;
 };
 

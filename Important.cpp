@@ -7,20 +7,15 @@
 
 Important* Important::instance = nullptr;
 
-Important::Important():Collection(name) {}
+Important::Important(std::string& n): Collection(n){}
 
 Important *Important::getInstance() {
-    if(instance== nullptr)
-        instance=new Important();
+    if(instance== nullptr){
+        std::string n="Important";
+        instance=new Important(n);}
     return instance;
 }
 
 Important::~Important() {
-    notes.clear();
     free(instance);
 }
-
-
-
-
-

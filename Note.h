@@ -17,8 +17,6 @@ private:
 public:
     Note(std::string& ti, std::string& te):title(ti),text(te),locked(false){}
 
-    ~Note()=default;
-
     std::string getTitle();
 
     void setTitle(std::string& newTitle);
