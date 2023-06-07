@@ -15,15 +15,15 @@ private:
     std::string text;
     bool locked;
 public:
-    Note(std::string& ti, std::string& te):title(ti),text(te),locked(false){}
+    Note(const std::string& ti, const std::string& te):title(ti),text(te),locked(false){}
 
-    std::string getTitle();
+    const std::string getTitle();
 
-    void setTitle(std::string& newTitle);
+    void setTitle(const std::string& newTitle);
 
-    std::string getText();
+    const std::string getText();
 
-    void setText(std::string& newText);
+    void setText(const std::string& newText);
 
     bool isLocked() const;
 

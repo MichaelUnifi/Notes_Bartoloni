@@ -20,17 +20,17 @@ protected:
     std::shared_ptr<Observer> view;
 public:
 
-    explicit Collection(std::string& n);
+    explicit Collection(const std::string& n);
 
     ~Collection() override;
 
     const std::string getName() override{return name;}
 
-    void setName(std::string &newName);
+    void setName(const std::string &newName);
 
-    bool searchNote(std::string& title);
+    bool searchNote(const std::string& title);
 
-    Note takeNote(std::string& title);
+    Note takeNote(const std::string& title);
 
     void addNote(std::shared_ptr<Note> note);
 
@@ -42,7 +42,7 @@ public:
 
     void remove(std::shared_ptr<Observer> o) override;
 
-    int getSize() const{return notes.size();}
+    int getSize() {return notes.size();}
 
     void notify() override;
 };

@@ -22,7 +22,7 @@ public:
 
     void show();
 
-    int getNoteNumberByCollection(std::shared_ptr<Subject> collection){return collectionsInfo.at(collection);}
+    int getNoteNumberByCollection(const std::shared_ptr<Subject> collection){return collectionsInfo.at(collection);}
 
     void update(std::shared_ptr<Subject> collection, int noteCount) override;
 

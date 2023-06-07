@@ -21,7 +21,7 @@ void Collection::show() {
     }
 }
 
-void Collection::addNote(std::shared_ptr<Note> note) {
+void Collection::addNote(const std::shared_ptr<Note> note) {
     notes.push_back(note);
     notify();
 }
@@ -34,7 +34,7 @@ bool Collection::removeNote(std::shared_ptr<Note> note) {
     return true;
 }
 
-void Collection::setName(std::string &newName) {
+void Collection::setName(const std::string &newName) {
     name=newName;
 }
 
@@ -46,7 +46,7 @@ void Collection::notify() {
     view->update(shared_from_this(),notes.size());
 }
 
-bool Collection::searchNote(std::string &title) {
+bool Collection::searchNote(const std::string &title) {
     for(const auto& it: notes){
         if(it->getTitle()==title)
             return true;
@@ -54,7 +54,7 @@ bool Collection::searchNote(std::string &title) {
     return false;
 }
 
-Note Collection::takeNote(std::string &title) {
+Note Collection::takeNote(const std::string &title) {
 
     for(const auto& it: notes){
         if(it->getTitle()==title)
@@ -72,7 +72,7 @@ void Collection::remove(std::shared_ptr<Observer> o) {
     view= nullptr;
 }
 
-Collection::Collection(std::string &n) {
+Collection::Collection(const std::string &n) {
     name=n;
     notes=std::list<std::shared_ptr<Note>>();
 }

@@ -4,22 +4,22 @@
 
 #include "Note.h"
 
-std::string Note::getTitle() {
+const std::string Note::getTitle() {
     return title;
 }
 
-void Note::setTitle(std::string& newTitle) {
+void Note::setTitle(const std::string& newTitle) {
     if(locked)
         std::cout<<"Impossibile modificare il titolo, nota bloccata"<<std::endl;
     else
         title=newTitle;
 }
 
-std::string Note::getText() {
+const std::string Note::getText() {
     return text;
 }
 
-void Note::setText(std::string& newText) {
+void Note::setText(const std::string& newText) {
     if(locked)
         std::cout<<"Impossibile modificare il testo, nota bloccata"<<std::endl;
     else
