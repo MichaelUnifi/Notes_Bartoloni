@@ -42,7 +42,7 @@ public:
 
     void remove(std::shared_ptr<Observer> o) override;
 
-    int getSize() {return notes.size();}
+    const int getSize() const{return notes.size();}
 
     void notify() override;
 };

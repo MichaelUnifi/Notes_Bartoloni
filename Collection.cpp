@@ -21,7 +21,7 @@ void Collection::show() {
     }
 }
 
-void Collection::addNote(const std::shared_ptr<Note> note) {
+void Collection::addNote(std::shared_ptr<Note> note) {
     notes.push_back(note);
     notify();
 }
@@ -76,5 +76,3 @@ Collection::Collection(const std::string &n) {
     name=n;
     notes=std::list<std::shared_ptr<Note>>();
 }
-
-

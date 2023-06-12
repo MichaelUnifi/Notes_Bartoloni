@@ -35,8 +35,6 @@
 // This file is #included from gtest-internal.h.
 // Do not #include this file anywhere else!
 
-#include <string>
-
 #include "gtest/gtest.h"
 #include "gtest/internal/gtest-filepath.h"
 #include "src/gtest-internal-inl.h"
@@ -423,13 +421,8 @@ TEST(NormalizeTest, MultipleConsecutiveSeparatorsInMidstring) {
 // "/bar" == //bar" == "///bar"
 TEST(NormalizeTest, MultipleConsecutiveSeparatorsAtStringStart) {
   EXPECT_EQ(GTEST_PATH_SEP_ "bar", FilePath(GTEST_PATH_SEP_ "bar").string());
-#if GTEST_OS_WINDOWS
-  EXPECT_EQ(GTEST_PATH_SEP_ GTEST_PATH_SEP_ "bar",
-            FilePath(GTEST_PATH_SEP_ GTEST_PATH_SEP_ "bar").string());
-#else
   EXPECT_EQ(GTEST_PATH_SEP_ "bar",
             FilePath(GTEST_PATH_SEP_ GTEST_PATH_SEP_ "bar").string());
-#endif
   EXPECT_EQ(
       GTEST_PATH_SEP_ "bar",
       FilePath(GTEST_PATH_SEP_ GTEST_PATH_SEP_ GTEST_PATH_SEP_ "bar").string());
@@ -628,9 +621,6 @@ TEST(FilePathTest, IsAbsolutePath) {
   EXPECT_TRUE(
       FilePath("c:/" GTEST_PATH_SEP_ "is_not" GTEST_PATH_SEP_ "relative")
           .IsAbsolutePath());
-  EXPECT_TRUE(FilePath("d:/Windows").IsAbsolutePath());
-  EXPECT_TRUE(FilePath("\\\\Host\\Share").IsAbsolutePath());
-  EXPECT_TRUE(FilePath("\\\\Host\\Share\\Folder").IsAbsolutePath());
 #else
   EXPECT_TRUE(FilePath(GTEST_PATH_SEP_ "is_not" GTEST_PATH_SEP_ "relative")
                   .IsAbsolutePath());
@@ -647,16 +637,6 @@ TEST(FilePathTest, IsRootDirectory) {
   EXPECT_FALSE(FilePath("b:a").IsRootDirectory());
   EXPECT_FALSE(FilePath("8:/").IsRootDirectory());
   EXPECT_FALSE(FilePath("c|/").IsRootDirectory());
-  EXPECT_TRUE(FilePath("c:/").IsRootDirectory());
-  EXPECT_FALSE(FilePath("d:/Windows").IsRootDirectory());
-
-  // This is for backward compatibility, since callers (even in this library)
-  // have assumed IsRootDirectory() implies a trailing directory separator.
-  EXPECT_FALSE(FilePath("\\\\Host\\Share").IsRootDirectory());
-
-  EXPECT_TRUE(FilePath("\\\\Host\\Share\\").IsRootDirectory());
-  EXPECT_FALSE(FilePath("\\\\Host\\Share\\.").IsRootDirectory());
-  EXPECT_FALSE(FilePath("\\\\Host\\Share\\C$\\").IsRootDirectory());
 #else
   EXPECT_TRUE(FilePath("/").IsRootDirectory());
   EXPECT_TRUE(FilePath("//").IsRootDirectory());

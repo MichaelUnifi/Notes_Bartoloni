@@ -9,7 +9,7 @@ we recommend this tutorial as a starting point.
 To complete this tutorial, you'll need:
 
 *   A compatible operating system (e.g. Linux, macOS, Windows).
-*   A compatible C++ compiler that supports at least C++14.
+*   A compatible C++ compiler that supports at least C++11.
 *   [Bazel](https://bazel.build/), the preferred build system used by the
     GoogleTest team.
 
@@ -17,10 +17,11 @@ See [Supported Platforms](platforms.md) for more information about platforms
 compatible with GoogleTest.
 
 If you don't already have Bazel installed, see the
-[Bazel installation guide](https://bazel.build/install).
+[Bazel installation guide](https://docs.bazel.build/versions/main/install.html).
 
-{: .callout .note} Note: The terminal commands in this tutorial show a Unix
-shell prompt, but the commands work on the Windows command line as well.
+{: .callout .note}
+Note: The terminal commands in this tutorial show a Unix shell prompt, but the
+commands work on the Windows command line as well.
 
 ## Set up a Bazel workspace
 
@@ -50,16 +51,16 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
   name = "com_google_googletest",
-  urls = ["https://github.com/google/googletest/archive/5ab508a01f9eb089207ee87fd547d290da39d015.zip"],
-  strip_prefix = "googletest-5ab508a01f9eb089207ee87fd547d290da39d015",
+  urls = ["https://github.com/google/googletest/archive/609281088cfefc76f9d0ce82e1ff6c30cc3591e5.zip"],
+  strip_prefix = "googletest-609281088cfefc76f9d0ce82e1ff6c30cc3591e5",
 )
 ```
 
 The above configuration declares a dependency on GoogleTest which is downloaded
 as a ZIP archive from GitHub. In the above example,
-`5ab508a01f9eb089207ee87fd547d290da39d015` is the Git commit hash of the
+`609281088cfefc76f9d0ce82e1ff6c30cc3591e5` is the Git commit hash of the
 GoogleTest version to use; we recommend updating the hash often to point to the
-latest version. Use a recent hash on the `main` branch.
+latest version.
 
 Now you're ready to build C++ code that uses GoogleTest.
 
