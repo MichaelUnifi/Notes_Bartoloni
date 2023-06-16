@@ -4,7 +4,7 @@
 
 #include "Note.h"
 
-const std::string Note::getTitle() {
+std::string Note::getTitle() const {
     return title;
 }
 
@@ -15,7 +15,7 @@ void Note::setTitle(const std::string& newTitle) {
         title=newTitle;
 }
 
-const std::string Note::getText() {
+std::string Note::getText() const {
     return text;
 }
 

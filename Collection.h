@@ -24,7 +24,7 @@ public:
 
     ~Collection() override;
 
-    const std::string getName() override{return name;}
+    std::string getName() const override {return name;}
 
     void setName(const std::string &newName);
 
@@ -42,7 +42,7 @@ public:
 
     void remove(std::shared_ptr<Observer> o) override;
 
-    const int getSize() const{return notes.size();}
+    int getSize() const{return notes.size();}
 
     void notify() override;
 };

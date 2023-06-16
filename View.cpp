@@ -8,7 +8,7 @@ View::View() {
     collectionsInfo=std::map<std::shared_ptr<Subject>,int>();
 }
 
-void View::update(std::shared_ptr<Subject> collection, int noteCount){
+void View::update (std::shared_ptr<Subject> collection, int noteCount){
     collectionsInfo[collection]=noteCount;
 }
 

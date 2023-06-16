@@ -17,11 +17,11 @@ private:
 public:
     Note(const std::string& ti, const std::string& te):title(ti),text(te),locked(false){}
 
-    const std::string getTitle();
+    std::string getTitle() const ;
 
     void setTitle(const std::string& newTitle);
 
-    const std::string getText();
+    std::string getText() const ;
 
     void setText(const std::string& newText);
 

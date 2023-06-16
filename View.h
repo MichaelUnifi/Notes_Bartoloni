@@ -18,11 +18,11 @@ private:
 public:
     View();
 
-    const int getCollectionsNumber(){return collectionsInfo.size();}
+    int getCollectionsNumber() const {return collectionsInfo.size();}
 
     void show();
 
-    const int getNoteNumberByCollection(const std::shared_ptr<Subject>& collection){return collectionsInfo.at(collection);}
+    int getNoteNumberByCollection(const std::shared_ptr<Subject>& collection) const {return collectionsInfo.at(collection);}
 
     void update(std::shared_ptr<Subject> collection, int noteCount) override;
 
